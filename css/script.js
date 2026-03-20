@@ -1,56 +1,95 @@
-// Functie voor navigatie (klik op kaarten)
-function openPage(pagina) {
-  document.getElementById("content").innerHTML = getPageContent(pagina);
-}
+let user = null;
 
-// Inhoud per pagina
-function getPageContent(pagina) {
+// START APP
+function render() {
+  const app = document.getElementById("app");
 
-  if (pagina === "Berichten") {
-    return `
-      <h2>📩 Berichten</h2>
-      <p>Hier komen je berichten.</p>
-      <button onclick="stuurBericht()">Nieuw bericht</button>
-    `;
-  }
-
-  if (pagina === "Taken") {
-    return `
-      <h2>📚 Taken</h2>
-      <ul>
-        <li>Wiskunde oefenen</li>
-        <li>Frans leren</li>
-      </ul>
-    `;
-  }
-
-  if (pagina === "Agenda") {
-    return `
-      <h2>📅 Agenda</h2>
-      <p>Geen events gepland.</p>
-    `;
-  }
-
-  return `<h2>Welkom</h2>`;
-}
-
-// Simpele bericht functie
-function stuurBericht() {
-  let naam = prompt("Naar wie?");
-  let bericht = prompt("Typ je bericht:");
-
-  if (naam && bericht) {
-    alert("Bericht gestuurd naar " + naam + "!");
+  if (!user) {
+    app.innerHTML = loginPage();
+  } else {
+    app.innerHTML = dashboard();
   }
 }
 
-// Startpagina instellen
-window.onload = function () {
-  // Zorg dat er een content div bestaat
-  let main = document.querySelector("main");
+// LOGIN PAGE
+function loginPage() {
+  return `
+    <div class="container">
+      <h2>Login</h2>
+      <input id="username" placeholder="Naam"><br>
+      <button onclick="login()">Login</button>
+    </div>
+  `;
+}
 
-  let contentDiv = document.createElement("div");
-  contentDiv.id = "content";
+// LOGIN FUNCTION
+function login() {
+  const name = document.getElementById("username").value;
 
-  main.appendChild(contentDiv);
-};
+  if (name) {
+    user = name;
+    render();
+  }
+}
+
+// DASHBOARD
+function dashboard() {
+  return `
+    <header>
+      Welkom ${user} 
+      <button onclick="logout()">Logout</button>
+    </header>
+
+    <div class="container">
+      <button onclick="show('berichten')">📩 Berichten</button>
+      <button onclick="show('taken')">📚 Taken</button>
+      <button onclick="show('agenda')">📅 Agenda</button>
+
+      <div id="content"></div>
+    </div>
+  `;
+}
+
+// LOGOUT
+function logout() {
+  user = null;
+  render();
+}
+
+// NAVIGATIE
+function show(pagina) {
+  const content = document.getElementById("content");
+
+  if (pagina === "berichten") {
+    content.innerHTML = `
+      <h3>Berichten</h3>
+      <div class="card">Van: Leerkracht → Maak je taak</div>
+      <button onclick="nieuwBericht()">Nieuw bericht</button>
+    `;
+  }
+
+  if (pagina === "taken") {
+    content.innerHTML = `
+      <h3>Taken</h3>
+      <div class="card">Wiskunde tegen morgen</div>
+    `;
+  }
+
+  if (pagina === "agenda") {
+    content.innerHTML = `
+      <h3>Agenda</h3>
+      <div class="card">Toets vrijdag</div>
+    `;
+  }
+}
+
+// NIEUW BERICHT
+function nieuwBericht() {
+  let txt = prompt("Typ je bericht:");
+  if (txt) {
+    alert("Verzonden!");
+  }
+}
+
+// START
+render();
