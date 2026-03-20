@@ -7,37 +7,35 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <header>
-    <h1>Smartschool Lite</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Berichten</a>
-      <a href="#">Taken</a>
-      <a href="#">Agenda</a>
-    </nav>
-  </header>
+<header>
+  <h1>Smartschool Lite</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Berichten</a>
+    <a href="#">Taken</a>
+    <a href="#">Agenda</a>
+  </nav>
+</header>
 
-  <!-- Main content -->
-  <main>
-    <h2>Welkom 👋</h2>
-    <p>Kies wat je wil doen:</p>
+<main>
+  <h2>Welkom 👋</h2>
+  <p>Klik op een onderdeel:</p>
 
-    <div class="cards">
-      <div class="card" onclick="openPage('berichten')">
-        📩 <h3>Berichten</h3>
-      </div>
-
-      <div class="card" onclick="openPage('taken')">
-        📚 <h3>Taken</h3>
-      </div>
-
-      <div class="card" onclick="openPage('agenda')">
-        📅 <h3>Agenda</h3>
-      </div>
+  <div class="cards">
+    <div class="card" onclick="openPage('Berichten')">
+      📩 <h3>Berichten</h3>
     </div>
-  </main>
 
-  <script src="script.js"></script>
+    <div class="card" onclick="openPage('Taken')">
+      📚 <h3>Taken</h3>
+    </div>
+
+    <div class="card" onclick="openPage('Agenda')">
+      📅 <h3>Agenda</h3>
+    </div>
+  </div>
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
